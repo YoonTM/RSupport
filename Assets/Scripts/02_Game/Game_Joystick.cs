@@ -22,6 +22,9 @@ public class Game_Joystick : MonoBehaviour, IDragHandler, IPointerDownHandler, I
 		Input.multiTouchEnabled = false;
 	}
 
+	/// <summary>
+	/// 터치 중에 스틱의 위치와, 그에따른 벡터값을 이벤트로 발행
+	/// </summary>
 	void OnTouch(Vector2 vecTouch)
 	{
 		Vector2 vec = new Vector2(vecTouch.x - joyStickBackground.position.x, vecTouch.y - joyStickBackground.position.y);

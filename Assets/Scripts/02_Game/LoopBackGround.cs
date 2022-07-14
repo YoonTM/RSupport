@@ -6,9 +6,9 @@ public class LoopBackGround : MonoBehaviour
 	[SerializeField] private float landSizeX = 9f;
 	[SerializeField] private float landSizeY = 7f;
 	[SerializeField] private float halfSight = 4.5f;
-	private float playerX=0;
-	private float playerY=0;
-    private Vector2[] border = null;
+	private float playerX = 0;
+	private float playerY = 0;
+	private Vector2[] border = null;
 
 	[SerializeField] private Transform[] _landArray = null;
 	public Transform[] landArray
@@ -16,20 +16,25 @@ public class LoopBackGround : MonoBehaviour
 		get { return _landArray; }
 		set { _landArray = value; }
 	}
+
+	/// <summary>
+	/// 캐릭터 주변 9칸의 바닥을 나타낼 transform 초기화
+	/// </summary>
 	[SerializeField] private Transform _backGround = null;
 	public Transform backGround
 	{
 		get { return _backGround; }
-		set {
-            playerX = transform.position.x;
-            playerY = transform.position.y;
-            _backGround = value;
+		set
+		{
+			playerX = transform.position.x;
+			playerY = transform.position.y;
+			_backGround = value;
 			landArray = new Transform[_backGround.childCount];
 			for (int i = 0; i < _backGround.childCount; i++)
 			{
 				landArray[i] = _backGround.GetChild(i);
-                landArray[i].position = new Vector2(landArray[i].position.x + playerX - 4.5f, landArray[i].position.y + playerY - 3.5f);
-            }
+				landArray[i].position = new Vector2(landArray[i].position.x + playerX - 4.5f, landArray[i].position.y + playerY - 3.5f);
+			}
 		}
 	}
 
@@ -42,19 +47,22 @@ public class LoopBackGround : MonoBehaviour
 	    new Vector2(playerX+landSizeX * 1.5f, playerY-landSizeY * 1.5f )
 		};
 	}
-	
+
 	private void Update()
 	{
 		BoundaryCheck();
 	}
 
+	/// <summary>
+	/// 캐릭터 위치와 캐릭터 시야를 체크하여 바닥 타일이 시야를 벗어나기 전 체크하는 함수
+	/// </summary>
 	private void BoundaryCheck()
 	{
-        if (border == null)
-            return;
+		if (border == null)
+			return;
 
-        if (backGround == null)
-            return;
+		if (backGround == null)
+			return;
 
 		//오른쪽 체크
 		if (border[1].x < transform.position.x + halfSight)
@@ -85,6 +93,12 @@ public class LoopBackGround : MonoBehaviour
 			MoveTile(3);
 		}
 	}
+
+	/// <summary>
+	/// 실제 타일을 이동시키는 함수
+	/// 캐릭터의 이동 방향에 따라 3칸씩 타일 이동
+	/// </summary>
+	/// <param name="dir">캐릭터의 이동방향</param>
 	private void MoveTile(int dir)
 	{
 		Transform[] tempArray = new Transform[9];

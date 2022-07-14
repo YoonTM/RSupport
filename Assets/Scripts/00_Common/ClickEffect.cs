@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-//  Button 컴포넌트에 추가하여 클릭 이펙트를 나타내는 스크립트.
-//  이벤트에따라 스케일 변화.
+/// <summary>
+/// 버튼 클릭 이펙트 컴포넌트
+/// </summary>
 public class ClickEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private RectTransform rectTransform { get { return (RectTransform)transform; } }

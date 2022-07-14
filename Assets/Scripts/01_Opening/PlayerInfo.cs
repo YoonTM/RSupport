@@ -11,6 +11,12 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField] Image ownImg = null;
     [SerializeField] TextMeshProUGUI nameTxt = null;
 
+	/// <summary>
+	/// 플레이어 정보를 방 정보 화면에 보여줄 함수
+	/// </summary>
+	/// <param name="isServer">해당 플레이어가 마스터인지 구별</param>
+	/// <param name="isOwn">해당 플레이어가 로컬인지 구별</param>
+	/// <param name="name">플레이어의 닉네임</param>
     public void SetPlayer(bool isServer, bool isOwn, string name)
     {
         if (isServer)

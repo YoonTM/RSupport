@@ -19,6 +19,9 @@ public class Game_Broadcast : MonoBehaviourPunCallbacks
 
 	private Player player = null;
 
+	/// <summary>
+	/// 자주 사용될 항목을 초기화
+	/// </summary>
 	protected void Start()
 	{
 		if (leaveRoomBtn)
@@ -29,6 +32,9 @@ public class Game_Broadcast : MonoBehaviourPunCallbacks
 			boomBtn.onClick.AddListener(BoomBtn_OnClick);
 	}
 
+	/// <summary>
+	/// 종료시 이벤트 정리
+	/// </summary>
 	private void OnDestroy()
 	{
 		if (leaveRoomBtn)
@@ -44,6 +50,11 @@ public class Game_Broadcast : MonoBehaviourPunCallbacks
 		}
 	}
 
+	/// <summary>
+	/// 게임 시작시 실행될 함수
+	/// 플레이어를 서버에 만들고, 플레이어가 발행할 이벤트 구독
+	/// 플레이어에게 조이스틱 이벤트 할당
+	/// </summary>
 	public void StartGameBtn_OnClick()
 	{
 		infoPanel.SetActive(false);
@@ -64,13 +75,19 @@ public class Game_Broadcast : MonoBehaviourPunCallbacks
 		}
 	}
 
-	//몬스터에게 피격시 렌더링중인 이미지 페이드인,페이드아웃 효과
+	/// <summary>
+	/// 몬스터에게 피격시 렌더링중인 이미지 페이드인,페이드아웃 효과
+	/// </summary
 	private void PlayerDamagedListener()
 	{
 		StopAllCoroutines();
 		StartCoroutine(ChangeRawImageCor());
 	}
 
+	/// <summary>
+	/// 시간에 따라 화면 페이드인, 페이드아웃 처리
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator ChangeRawImageCor()
 	{
 		float value = 1f;
@@ -90,22 +107,33 @@ public class Game_Broadcast : MonoBehaviourPunCallbacks
 		yield break;
 	}
 
+	/// <summary>
+	/// 게임 완료 시 게임 방에서 나감 처리
+	/// </summary>
 	private void GameCompleteListener()
 	{
-        LeaveRoomBtn_OnClick();
+		LeaveRoomBtn_OnClick();
+	}
 
-    }
-
+	/// <summary>
+	/// 방 나가기 버튼 리스너
+	/// </summary>
 	private void LeaveRoomBtn_OnClick()
 	{
 		PhotonNetwork.LeaveRoom();
 	}
 
+	/// <summary>
+	/// 방에서 나가졌을때, 0번 씬으로 이동
+	/// </summary>
 	public override void OnLeftRoom()
 	{
 		SceneManager.LoadScene(0);
 	}
 
+	/// <summary>
+	/// 화면의 폭탄 버튼 클릭 시 플레이어에게 이벤트 전달
+	/// </summary>
 	public void BoomBtn_OnClick()
 	{
 		if(player)

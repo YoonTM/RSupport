@@ -9,7 +9,6 @@ using Photon.Pun;
 using Photon.Realtime;
 
 
-//  Photon 서버에 접속하는 스크립트.
 public class OpeningManager : MonoBehaviourPunCallbacks
 { 
     [Header("UI")]
@@ -178,6 +177,10 @@ public class OpeningManager : MonoBehaviourPunCallbacks
         RenewPlayer();
     }
 
+	/// <summary>
+	/// 플레이어 새로고침 함수.
+	/// 기존 플레이어 목록을 삭제 한 후, 새 목록을 받아 Prefab 복사
+	/// </summary>
     private void RenewPlayer()
     {
         for (int i = playerInfoPanel.transform.childCount - 1; i >= 0; i--)
@@ -190,6 +193,9 @@ public class OpeningManager : MonoBehaviourPunCallbacks
         }
     }
 
+	/// <summary>
+	/// 게임 실행 함수
+	/// </summary>
     private void StartGameBtn_OnClick()
     {
         if( !PhotonNetwork.IsMasterClient)
